@@ -1,11 +1,11 @@
 module.exports = {
 	
 	//Your Discord Token.
-	TOKEN: "",
+	token: "",
 
 	//The Default guild that you want to be in when the script starts (This must be the ID of the guild).
-	DEFAULT_GUILD_ID: "",
+	defaultGuildID: "",
 
 	//The prefix you want to use in the shell.
-	PREFIX = "!"
+	prefix = "!"
 }
