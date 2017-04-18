@@ -35,6 +35,15 @@ client.on('ready', async () => {
 			name: `${client.guilds.get(config.defaultGuildID).defaultChannel.name}`,
 		}
 	});
+
+	if (config.defaultChannelID) {
+		if (client.guilds.get(config.defaultGuildID).channels.get(config.defaultChannelID)) {
+			Object.assign(current.guild.channel, {
+				name: `${client.guilds.get(config.defaultGuildID).channels.get(config.defaultChannelID).name}`,
+				id: `${config.defaultChannelID}`
+			});
+		}
+	}
 	
 	vorpal.delimiter(`[#${chalk.blue(current.guild.channel.name)}]> `).show();
 
