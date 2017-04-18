@@ -34,7 +34,7 @@ npm install
 ----
 
 ### Commands:
-There are two main types of commnands, *general*, and *prefixed* commands. 
+There are two main types of commnands, *general*, and *prefixed*. 
 
 #### General Commands:
 General commands do not require a prefix to be used.
