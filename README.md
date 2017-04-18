@@ -12,6 +12,8 @@ Discord for Shell, use Discord easily in the terminal!
 *If you don't aready have Node installed, I high reccomend [installing n](https://github.com/tj/n#installation)*
 ```sh
 # Clone this repository
+# If you don't have git then do:
+#sudo apt install git -y
 git clone https://github.com/RyoshiKayo/Discord-Shell.git
 # Move into the folder
 cd Discord-Shell/
