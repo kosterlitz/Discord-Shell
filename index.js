@@ -56,13 +56,11 @@ client.on('message', (msg) => {
 
 	if (msg.channel === Discord.DMChannel) {
 		objAssignDeep(this.current.dm, { id: `${msg.channel.id}`, recipient: `${msg.channel.recipient}` });
-		//vorpal.ui.imprint();
 		vorpal.log(`${chalk.yellow('[DM]')} @${msg.author.username}#${msg.author.discriminator}: ${msg.cleanContent}`);
 	}
 
 	//Display other users messages.
 	if (msg.guild.id === current.guild.id) {
-		//vorpal.ui.imprint();
 		vorpal.log(`[#${chalk.blue(msg.channel.name)}] @${msg.author.username}#${msg.author.discriminator}: ${msg.cleanContent}`);
 	}
 });
@@ -77,6 +75,14 @@ function sendMessage(msg) {
 	}
 }
 
+function sendDM(msg) {
+	if (msg) {
+		client.channels.get(current.dm.id).sendMessage(msg).then().catch(err => {
+			vorpal.log(`${chalk.red('Failed to send DM!')}\n${err.text}`);
+		});
+	}
+}
+
 function sendCode(code, syntax, current) {
 	client.channels.get(current.guild.channel.id).sendCode(syntax, code);
 }
@@ -86,10 +92,17 @@ async function loadCommands() {
 		.command('setserver [servername]', 'Sets the current guild.')
 		.autocomplete(current.guilds)
 		.action(function(args, callback) {
-			if (client.guilds.exists(args.servername)) {
-				this.log(`Connecting to ${args.servername}...`);
-				current.guild.name = `${args.servername}`;
-				current.guild.id = `${client.guilds.find('name', args.servername).id}`;
+			if (client.guilds.exists('name', args.servername)) {
+				if (!client.guilds.find('name', args.servername).available) {
+					this.log(`${args.servername} is currently unavailable.`);
+				} else {
+					this.log(`Connecting to ${args.servername}...`);
+					current.guild.name = `${args.servername}`;
+					current.guild.id = `${client.guilds.find('name', args.servername).id}`;
+					current.guild.channel.name = `${client.guilds.find('name', args.servername).defaultChannel.name}`;
+					current.guild.channel.id = `${client.guilds.find('name', args.servername).defaultChannel.id}`;
+				}
+
 			} else {
 				this.log(`Invalid guild: \'${args.servername}\'.`);
 			}
@@ -124,6 +137,17 @@ async function loadCommands() {
 			} else {
 				sendMessage(args.message.join(' '));
 				callback();
+			}
+		});
+	
+	vorpal
+		.command(`reply [message...]`, `Responds to the last DM.`)
+		.autocomplete(['r', 'R'])
+		.action(function(args, callback) {
+			if (!current.dm.id) {
+				this.log(`There is no current DM.`);
+			} else {
+
 			}
 		});
 }
