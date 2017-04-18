@@ -7,5 +7,5 @@ module.exports = {
 	defaultGuildID: "",
 
 	//The prefix you want to use in the shell.
-	prefix = "!"
+	prefix: "!"
 }
