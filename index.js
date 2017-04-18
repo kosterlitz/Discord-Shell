@@ -46,6 +46,10 @@ client.on('ready', async () => {
 		vorpal.log(`Error while loading channels!\n${err}`);
 	});
 
+	loadMutedChannels().then().catch(err => {
+		vorpal.log(`Error while loading muted channels!\n${err}`);
+	});
+
 	loadCommands().then().catch(err => {
 		vorpal.log(`Error while loading commands!\n${err}`);
 	});
@@ -53,6 +57,7 @@ client.on('ready', async () => {
 });
 
 client.on('message', (msg) => {	
+	vorpal.delimiter(`[#${chalk.blue(current.guild.channel.name)}]> `).show();
 
 	if (msg.channel === Discord.DMChannel) {
 		objAssignDeep(this.current.dm, { id: `${msg.channel.id}`, recipient: `${msg.channel.recipient}` });
@@ -110,22 +115,18 @@ async function loadCommands() {
 		});
 
 	vorpal
-		.command('setchannel', 'Sets the current channel.')
+		.command('setchannel [channelname]', 'Sets the current channel.')
 		.autocomplete(current.guild.channels)
 		.action(function(args, callback) {
-			if (args.length >= 2) {
-				this.log(`Too many arguments!`);
-				callback();
+			if (client.guilds.find('id', current.guild.id).channels.exists('name', args.channelname)) {
+				this.log(`Moving to #${args.channelname}`);
+				current.guild.channel.name = `${args.channelname}`;
+				current.guild.channel.id = `${client.guilds.find('id', current.guild.id).channels.find('name', args.channelname).id}`;
+				vorpal.delimiter(`[#${chalk.blue(current.guild.channel.name)}]> `).show();
 			} else {
-				if (client.guilds.find('id', current.guild.id).channels.exists(args[0])) {
-					this.log(`Moving to #${args[0]}`);
-					current.guild.channel.name = `${args[0]}`;
-					current.guild.channel.id = `${client.guilds.find('id', current.guild.id).channels.find('name', args[0]).id}`;
-				} else {
-					this.log(`Invalid channel!`);
-				}
-				callback();
+				this.log(`Invalid channel!`);
 			}
+			callback();
 		});
 
 	vorpal
@@ -164,4 +165,8 @@ async function loadGuilds() {
 	client.guilds.map(function(guild) {
 		current.guilds.push(guild.name);
 	});
+}
+
+async function loadMutedChannels() {
+
 }
