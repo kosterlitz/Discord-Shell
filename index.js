@@ -71,12 +71,24 @@ vorpal
 	});
 
 client.on('ready', () => {
+	if (!client.guilds.get(config.defaultGuildID)) {
+		return console.log(`config.defaultGuildID must be a valid Guild ID!`);
+	}
 
+	this.current.guild = {
+		id: client.guilds.get(config.defaultGuildID).id,
+		name: client.guilds.get(config.defaultGuildID).name,
+		channel: {
+			id: client.guilds.get(config.defaultGuildID).defaultChannel.id,
+			name: client.guilds.get(config.defaultGuildID).defaultChannel.name,
+		}
+	}
 });
 
 client.on('message', (msg) => {	
 
 	if (msg.channel === Discord.DMChannel) {
+		this.current.dm = { id: msg.channel.id, recipient: msg.channel.recipient };
 		vorpal.ui.input(`${chalk.yellow('[DM]')} @${msg.author.username}#${msg.author.discriminator}: ${msg.cleanContent}`);
 	}
 
