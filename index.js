@@ -22,7 +22,7 @@ let current = {
 	}
 };
 
-client.on('ready', async () => {
+client.on('ready', (async () => {
 	if (!client.guilds.get(config.defaultGuildID)) {
 		return console.log(`config.defaultGuildID must be a valid Guild ID!`);
 	}
@@ -63,7 +63,7 @@ client.on('ready', async () => {
 		vorpal.log(`Error while loading commands!\n${err}`);
 	});
 
-});
+}));
 
 client.on('message', (msg) => {	
 	vorpal.delimiter(`[#${chalk.blue(current.guild.channel.name)}]> `).show();
