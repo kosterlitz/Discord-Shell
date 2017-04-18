@@ -1,12 +1,16 @@
 # Discord-Shell
+[![Github License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/RyoshiKayo/Discord-Shell/master/LICENSE)
+[![Code Climate](https://codeclimate.com/github/RyoshiKayo/Discord-Shell/badges/gpa.svg)](https://codeclimate.com/github/RyoshiKayo/Discord-Shell/)
+[![Issue Count](https://codeclimate.com/github/RyoshiKayo/Discord-Shell/badges/issue_count.svg)](https://codeclimate.com/github/RyoshiKayo/Discord-Shell/)
+
+
 Discord for Shell, use Discord easily in the terminal!
 
-[img]
-
-***Requires Node v7+***
+***Requires [Node v7+](https://nodejs.org/en/download/current/)***
 
 ----
 ### Installation:
+*If you don't aready have Node installed, I high reccomend [installing n](https://github.com/tj/n#installation)*
 ```sh
 # Clone this repository
 git clone https://github.com/RyoshiKayo/Discord-Shell.git
