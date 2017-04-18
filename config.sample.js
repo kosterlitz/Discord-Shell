@@ -7,5 +7,13 @@ module.exports = {
 	defaultGuildID: "",
 
 	//The prefix you want to use in the shell.
-	prefix: "!"
+	prefix: "!",
+
+	//The muted channels by guild.
+	// [
+	// 	guildID: {
+	// 		muted: [{channelID}]
+	// 	}
+	// ]
+	mutedChannels: []
 }
