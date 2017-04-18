@@ -6,6 +6,8 @@ module.exports = {
 	//The Default guild that you want to be in when the script starts (This must be the ID of the guild).
 	defaultGuildID: "",
 
+	defaultChannelID: "",
+
 	//The prefix you want to use in the shell.
 	prefix: "!",
 
