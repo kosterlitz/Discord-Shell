@@ -1,8 +1,7 @@
 # Discord-Shell
+
 [![Github License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/RyoshiKayo/Discord-Shell/master/LICENSE)
 [![Code Climate](https://codeclimate.com/github/RyoshiKayo/Discord-Shell/badges/gpa.svg)](https://codeclimate.com/github/RyoshiKayo/Discord-Shell/)
-[![Issue Count](https://codeclimate.com/github/RyoshiKayo/Discord-Shell/badges/issue_count.svg)](https://codeclimate.com/github/RyoshiKayo/Discord-Shell/)
-
 
 Discord for Shell, use Discord easily in the terminal!
 
