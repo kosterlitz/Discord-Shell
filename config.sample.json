@@ -1,16 +1,16 @@
-module.exports = {
+ {
 	
 	//Your Discord Token.
-	token: "",
+	"token": "",
 
 	//The Default guild that you want to be in when the script starts (This must be the ID of the guild).
-	defaultGuildID: "",
+	"defaultGuildID": "",
 
 	//The Default channel (in the default guild you set above) to join when the CLI starts.
-	defaultChannelID: "",
+	"defaultChannelID": "",
 
 	//The prefix you want to use in the shell.
-	prefix: "!",
+	"prefix": "!",
 
 	//The muted channels by guild.
 	// [
@@ -18,5 +18,5 @@ module.exports = {
 	// 		muted: [{channelID}]
 	// 	}
 	// ]
-	mutedChannels: []
+	"mutedChannels": []
 }
