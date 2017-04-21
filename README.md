@@ -5,6 +5,8 @@
 
 Discord for Shell, use Discord easily in the terminal!
 
+***This is currently very unstable, please be patient and feel free to make pull requests!***
+
 ***Requires [Node v7+](https://nodejs.org/en/download/current/)***
 
 ----
@@ -70,5 +72,7 @@ Prefixed commands require the `prefix` you set in your `config.js`.
 ##### 2. Open `Application > Local Storage` 
   <img src="https://safe.kayo.moe/LSkeOg40.png" height=500 width=auto></img>
 ##### 3. Right click on the value and copy the contents.
+
+----
 
 Thanks to @WeebDev for the "finding your token image" from [Discord.JS](https://discord.js.org/#/)
