@@ -75,5 +75,8 @@ Prefixed commands require the `prefix` you set in your `config.js`.
 ##### 3. Right click on the value and copy the contents.
 
 ----
+## Author
+Discord-Shell © RyoshiKayo, Released under the MIT License.
+Authored and maintained by RyoshiKayo.
 
 Thanks to @WeebDev for the "finding your token image" from [Discord.JS](https://discord.js.org/#/)
