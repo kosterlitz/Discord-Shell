@@ -9,11 +9,8 @@
     "discord.js": "github:hydrabolt/discord.js#8436cbe8b164a58a1655a38198a2de0e14ed9f5e",
     "erlpack": "github:hammerandchisel/erlpack",
     "fs": "0.0.1-security",
-    "node-opus": "^0.2.6",
     "object-assign-deep": "0.0.4",
-    "opusscript": "0.0.3",
     "sodium": "^2.0.1",
-    "uws": "^0.14.1",
     "vorpal": "^1.12.0"
   },
   "devDependencies": {
@@ -26,7 +23,7 @@
     "gulp-cli": "^1.2.2"
   },
   "scripts": {
-    "test": "gulp default"
+    "test": "gulp"
   },
   "repository": {
     "type": "git",
