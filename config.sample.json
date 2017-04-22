@@ -1,5 +1,4 @@
  {
-	
 	//Your Discord Token.
 	"token": "",
 
@@ -12,11 +11,21 @@
 	//The prefix you want to use in the shell.
 	"prefix": "!",
 
-	//The muted channels by guild.
-	// [
-	// 	guildID: {
-	// 		muted: [{channelID}]
-	// 	}
-	// ]
-	"mutedChannels": []
+	//List of all of the guilds and their channels. You don't need to do any of this, it happens automatically.
+	"guilds": {
+		// "guild ID": [
+		// 	{ 
+		// 		"channel id": {
+		// 			"name": "the name",
+		// 			"isMuted": false
+		// 		} 
+		// 	}, 
+		// 	{ 
+		// 		"another channel id": {
+		// 			"name": "another name",
+		// 			"isMuted": false
+		// 		}
+		// 	}
+		// ]
+	}
 }
