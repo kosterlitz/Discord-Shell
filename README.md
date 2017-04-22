@@ -2,6 +2,7 @@
 
 [![Github License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/RyoshiKayo/Discord-Shell/master/LICENSE)
 [![Code Climate](https://codeclimate.com/github/RyoshiKayo/Discord-Shell/badges/gpa.svg)](https://codeclimate.com/github/RyoshiKayo/Discord-Shell/)
+[![Master Build Status](https://travis-ci.org/RyoshiKayo/Discord-Shell.svg?branch=master)](https://travis-ci.org/RyoshiKayo/Discord-Shell)
 
 Discord for Shell, use Discord easily in the terminal!
 
