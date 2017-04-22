@@ -6,9 +6,7 @@ const BUILD = 'build';
 gulp.task('build', () => {
     gulp.src(PATH)
         .pipe(babel({ presets: ['env'] }))
-        .pipe(gulp.dest(BUILD))
-        .pipe(minify())
-        .pipe(gulp.dest(BUILD + '/min'))
+        .pipe(gulp.dest(BUILD));
 });
 
 gulp.task('watch', ['build'], () => {
