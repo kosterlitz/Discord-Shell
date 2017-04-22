@@ -1,0 +1,11 @@
+before_install:
+  - sudo apt-get update -qq
+install:
+  - npm install
+branches:
+  only:
+    - master
+    - experimental
+language: node_js
+node_js:
+  - "7.7"
