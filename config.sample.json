@@ -1,31 +1,24 @@
  {
-	//Your Discord Token.
+	// Your Discord Token.
 	"token": "",
 
-	//The Default guild that you want to be in when the script starts (This must be the ID of the guild).
+	// The Default guild that you want to be in when the script starts (This must be the ID of the guild).
 	"defaultGuildID": "",
 
-	//The Default channel (in the default guild you set above) to join when the CLI starts.
+	// The Default channel (in the default guild you set above) to join when the CLI starts.
 	"defaultChannelID": "",
 
-	//The prefix you want to use in the shell.
+	// The prefix you want to use in the shell.
 	"prefix": "!",
 
-	//List of all of the guilds and their channels. You don't need to do any of this, it happens automatically.
-	"guilds": {
-		// "guild ID": [
-		// 	{ 
-		// 		"channel id": {
-		// 			"name": "the name",
-		// 			"isMuted": false
-		// 		} 
-		// 	}, 
-		// 	{ 
-		// 		"another channel id": {
-		// 			"name": "another name",
-		// 			"isMuted": false
-		// 		}
-		// 	}
-		// ]
-	}
+	// Different Syntax to use in the code command.
+	"syntax": [
+		"javascript",
+		"sh",
+		"nginx",
+		"yml",
+		"xml",
+		"python",
+		"ruby"
+	]
 }
