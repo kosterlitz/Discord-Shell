@@ -5,8 +5,6 @@ dist: trusty
 cache:
   directories:
     - node_modules
-before_install:
-  - npm i -g gulp
 branches:
   only:
     - master
