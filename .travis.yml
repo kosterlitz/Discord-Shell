@@ -1,6 +1,8 @@
 before_install:
   - sudo apt-get update -qq
+  - sudo apt-get install build-essential
 install:
+  - sudo npm i -g node-gyp
   - npm install
 branches:
   only:
