@@ -215,7 +215,7 @@ function loadCommands() {
 		});	
 }
 
-const hasPermissionInCurrentChannel = (permissionResolvable) => client.channels.get(current.guild.channel.id).permissionsFor(client.user).hasPermission(permissionResolvable);
+const hasPermissionInCurrentChannel = (permissionResolvable) => client.channels.get(current.guild.channel.id).permissionsFor(client.user).hasPermission(permissionResolvable); // eslint-disable-line max-len
 
 function showPrefix() {
 	let color = 'yellow';
