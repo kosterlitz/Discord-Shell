@@ -74,7 +74,24 @@ client.on('message', msg => {
 	showPrefix();
 });
 
-client.login(config.token);
+if (!config.token) {
+	vorpal.command('')
+		.action((args, callback) => {
+			return vorpal.prompt({
+				type: 'input',
+				name: 'discordToken',
+				message: 'Paste your full discord token and press enter.',
+				validate: input => {
+					if (!input) return 'You must paste your discord token!';
+					else return true;
+				}
+			}, result => {
+				require('./token.json').token = result.discordToken;
+			}, callback());
+		});
+} else {
+	client.login(config.token);
+}
 
 const loadCommands = () => {
 	vorpal
