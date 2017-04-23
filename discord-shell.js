@@ -84,23 +84,27 @@ function loadCommands() {
 	vorpal
 		.command(`${PREFIX}setguild [guildname]`, 'Sets the current guild.')
 		.autocomplete(current.guilds)
-		.action((args, callback) => {
+		.action(async (args, callback) => {
 			let guild = args.guildname;
 			if (client.guilds.exists('name', guild)) {
 				if (!client.guilds.find('name', guild).available) {
 					vorpal.log(chalk.yellow(`${guild} is currently unavailable.`));
 				} else {
 					vorpal.log(chalk.green(`Connecting to ${guild}...`));
-					let _guild = client.guilds.get('name', guild);
-					current.guild = {
+					let _guild = await client.guilds.find('name', guild);
+					objAssignDeep(current.guild, {
 						name: _guild.name,
 						id: _guild.id,
 						channel: {
 							name: _guild.defaultChannel.name,
 							id: _guild.defaultChannel.id
 						}
-					};
+					});
 					current.mutedChannels = [];
+					loadChannels();
+					vorpal.log(chalk.green('Connected!'));
+					vorpal.log(current.guild);
+					showPrefix();
 				}
 			} else {
 				vorpal.log(chalk.red(`Invalid guild!`));
@@ -207,14 +211,24 @@ function loadCommands() {
 		.autocomplete(['s', 'say'])
 		.action((args, callback) => {
 			if (args.message.length !== 0) sendMessage(args.message.join(' '));
-
 			callback();
-		});
+		});	
+}
+
+const hasPermissionInCurrentChannel = (permissionResolvable) => client.channels.get(current.guild.channel.id).permissionsFor(client.user).hasPermission(permissionResolvable);
+
+function showPrefix() {
+	let color = 'yellow';
+	if (hasPermissionInCurrentChannel('SEND_MESSAGES')) color = 'blue';
+
+	vorpal.delimiter(`[#${chalk[color](current.guild.channel.name)}]> `).show();
 }
 
 // Only load guild channels.
 function loadChannels() {
-	client.guilds.get(current.guild.id).channels.map(channel => current.guild.channels.push(channel.name));
+	client.guilds.get(current.guild.id).channels.map(channel => {
+		if (channel.type === 'text') current.guild.channels.push(channel.name);
+	});
 }
 
 function loadDMs() {
@@ -223,10 +237,6 @@ function loadDMs() {
 
 function loadGuilds() {
 	client.guilds.map(guild => current.guilds.push(guild.name));
-}
-
-function showPrefix() {
-	vorpal.delimiter(`[#${chalk.blue(current.guild.channel.name)}]> `).show();
 }
 
 function sendMessage(msg) {
