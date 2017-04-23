@@ -1,14 +1,22 @@
 # Discord-Shell
 
-[![Github License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/RyoshiKayo/Discord-Shell/blob/master/LICENSE.md)
-[![Code Climate](https://codeclimate.com/github/RyoshiKayo/Discord-Shell/badges/gpa.svg)](https://codeclimate.com/github/RyoshiKayo/Discord-Shell/)
-[![Master Build Status](https://travis-ci.org/RyoshiKayo/Discord-Shell.svg?branch=master)](https://travis-ci.org/RyoshiKayo/Discord-Shell)
+> Discord for Shell, use Discord easily in the terminal!
 
-Discord for Shell, use Discord easily in the terminal!
+<div align="center">
+  <p>
+    <a href="https://www.npmjs.com/package/discord-shell"><img src="https://img.shields.io/npm/v/discord-shell.svg?maxAge=3600" /></a>
+    <a href="https://codeclimate.com/github/RyoshiKayo/Discord-Shell/"><img src="https://codeclimate.com/github/RyoshiKayo/Discord-Shell/badges/gpa.svg" alt="Code Climate GPA" /></a>
+    <a href="https://travis-ci.org/RyoshiKayo/Discord-Shell"><img src="https://travis-ci.org/RyoshiKayo/Discord-Shell.svg?branch=master" alt="Travis Build Status" /></a>
+    <a href="https://github.com/RyoshiKayo/Discord-Shell/blob/master/LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
+  </p>
+  <p>
+    <a href="https://www.npmjs.com/package/discord-shell"><img src="https://nodei.co/npm/discord-shell.png?downloads=true&downloadRank=true&stars=true" alt="NPM Information" /></a>
+  </p>
 
 ***This is currently very unstable, please be patient and feel free to make pull requests!***
 
 ***Requires [Node v7+](https://nodejs.org/en/download/current/)***
+</div>
 
 ----
 
@@ -17,32 +25,22 @@ Discord for Shell, use Discord easily in the terminal!
 *If you don't aready have Node installed, I high reccomend [installing n](https://github.com/tj/n#installation)*
 
 ```sh
-# Clone this repository
-# If you don't have git then do:
-# sudo apt install git -y
-git clone https://github.com/RyoshiKayo/Discord-Shell.git
-# Move into the folder
-cd Discord-Shell/
-# Install required packages
-npm install
-# Continue to Configuration
+npm i -g discord-shell
 ```
 
 ----
 
 ## Configuration
 
-`cp ~/Discord-Shell/config.sample.json ~/Discord-Shell/config.json`
+`token.json`: This is your discord token ([Find your token](#finding-your-token)).
 
-`token`: This is your discord token ([Find your token](#finding-your-token)).
+`npm config set -g discord-shell:defaultGuildID <defaultGuildID>`: This is the ID of guild you want to join when you first start up the CLI.
 
-`defaultGuildID`: This is the ID of guild you want to join when you first start up the CLI.
+`npm config set -g discord-shell:defaultChannelID <defaultChannelID>`: ***Optional*** This is the ID of the channel (*In the default guild you set*) you want to join when you first start the CLI. The default is the default guild channel if nothing is set.
 
-`defaultChannelID`: ***Optional*** This is the ID of the channel (*In the default guild you set*) you want to join when you first start the CLI. The default is the default guild channel if nothing is set.
+`npm config set -g discord-shell:prefix '<prefix>'`: This is the prefix you want to use to trigger [commands](#commands).
 
-`prefix`: This is the prefix you want to use to trigger [commands](#commands).
-
-`syntax`: These are the different types of syntaxes you would like to autocomplete when sending a code message.
+`npm config set -g discord-shell:syntax '['javascript', 'json', 'etc']'`: ***Optional*** This overrides the types of syntax's you would like to autocomplete when sending a code message.
 
 ----
 
@@ -67,11 +65,15 @@ npm install
 ### Todo
 
 - [X] Finish DM Handeling.
-- [ ] Add administrative commands (Prefixed).
+- [ ] Add more administrative commands (Prefixed).
 - [ ] Add the ability to mute/unmute channels for the current guild.
   - [X] Implement functionality.
   - [ ] Save muted channels when closing.
 - [X] Impliment default channel.
+- [ ] Add !status command [#3](https://github.com/RyoshiKayo/Discord-Shell/issues/3).
+- [ ] Add !delete command [#4](https://github.com/RyoshiKayo/Discord-Shell/issues/4).
+- [ ] Add !read command [#7](https://github.com/RyoshiKayo/Discord-Shell/issues/7).
+
 
 ----
 
