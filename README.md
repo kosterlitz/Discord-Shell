@@ -1,6 +1,6 @@
 # Discord-Shell
 
-[![Github License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/RyoshiKayo/Discord-Shell/master/LICENSE)
+[![Github License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/RyoshiKayo/Discord-Shell/blob/master/LICENSE.md)
 [![Code Climate](https://codeclimate.com/github/RyoshiKayo/Discord-Shell/badges/gpa.svg)](https://codeclimate.com/github/RyoshiKayo/Discord-Shell/)
 [![Master Build Status](https://travis-ci.org/RyoshiKayo/Discord-Shell.svg?branch=master)](https://travis-ci.org/RyoshiKayo/Discord-Shell)
 
