@@ -6,6 +6,7 @@
   },
   "description": "Discord in the Shell",
   "main": "discord-shell.js",
+  "bin": "discord-shell.js",
   "dependencies": {
     "bufferutil": "^2.0.0",
     "chalk": "^1.1.3",
