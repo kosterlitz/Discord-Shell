@@ -102,7 +102,6 @@ const loadCommands = () => {
 					current.mutedChannels = [];
 					loadChannels();
 					vorpal.log(chalk.green('Connected!'));
-					vorpal.log(current.guild);
 					showPrefix();
 				}
 			} else {
