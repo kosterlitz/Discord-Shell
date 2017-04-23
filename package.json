@@ -4,6 +4,7 @@
   "engines": {
     "node":"^7.7.4"
   },
+  "bin": "./",
   "description": "Discord in the Shell",
   "main": "discord-shell.js",
   "files": [
