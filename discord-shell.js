@@ -116,7 +116,7 @@ const loadCommands = () => {
 		.autocomplete(current.guild.channels)
 		.action((args, callback) => {
 			if (client.guilds.find('id', current.guild.id).channels.exists('name', args.channelname)) {
-				vorpal.log(chalk.green(`Moving to #${args.channelname}`));
+				vorpal.log(chalk.green(`Moving to #${args.channelname} in ${current.guild.name}`));
 				current.guild.channel.name = `${args.channelname}`;
 				current.guild.channel.id = `${client.guilds.find('id', current.guild.id).channels.find('name', args.channelname).id}`; // eslint-disable-line max-len
 				showPrefix();
