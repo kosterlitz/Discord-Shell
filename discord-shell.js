@@ -59,12 +59,7 @@ client.on('message', msg => {
 	showPrefix();
 
 	if (msg.channel === Discord.DMChannel) {
-		objAssignDeep(current.dm,
-			{
-				id: `${msg.channel.id}`,
-				recipient: `${msg.channel.recipient}`
-			}
-		);
+		objAssignDeep(current.dm, {	id: `${msg.channel.id}`, recipient: `${msg.channel.recipient}` });
 		vorpal.log(`${chalk.yellow('[DM]')} @${msg.author.username}#${msg.author.discriminator}: ${msg.cleanContent}`);
 	}
 
@@ -76,7 +71,7 @@ client.on('message', msg => {
 
 client.login(config.token);
 
-function loadCommands() {
+const loadCommands = () => {
 	/**
 	 * 		Prefixed Commands.
 	 */
@@ -133,7 +128,6 @@ function loadCommands() {
 			if (!current.dm.id) vorpal.log(chalk.red(`There is no current DM.`));
 			else if (args.message.length === 0) vorpal.log(chalk.red('Invalid message!'));
 			else sendDM(args.message.join(' '), current.dm.id);
-
 			callback();
 		});
 
@@ -143,7 +137,6 @@ function loadCommands() {
 		.action((args, callback) => {
 			if (current.dms.map(dm => dm.username).indexOf(args.username) === -1) vorpal.log(chalk.red('Invalid user!'));
 			else sendDM(args.message.join(' '), current.dms.filter(dm => dm.username === args.username));
-
 			callback();
 		});
 
@@ -198,7 +191,6 @@ function loadCommands() {
 			if (config.syntax.indexOf(args.syntax) === -1) vorpal.log(chalk.red(`Invalid Syntax: '${args.syntax}'!`));
 			else if (args.code.length === 0) vorpal.log(chalk.red('Invalid arguments!'));
 			else sendCode(args.syntax, args.code.join(' '));
-
 			callback();
 		});
 
@@ -217,48 +209,23 @@ function loadCommands() {
 
 const hasPermissionInCurrentChannel = (permissionResolvable) => client.channels.get(current.guild.channel.id).permissionsFor(client.user).hasPermission(permissionResolvable); // eslint-disable-line max-len
 
-function showPrefix() {
+const showPrefix = () => {
 	let color = 'yellow';
 	if (hasPermissionInCurrentChannel('SEND_MESSAGES')) color = 'blue';
-
 	vorpal.delimiter(`[#${chalk[color](current.guild.channel.name)}]> `).show();
 }
 
-// Only load guild channels.
-function loadChannels() {
-	client.guilds.get(current.guild.id).channels.map(channel => {
-		if (channel.type === 'text') current.guild.channels.push(channel.name);
-	});
-}
+const loadChannels = () => client.guilds.get(current.guild.id).channels.map(channel => { if (channel.type === 'text') return current.guild.channels.push(channel.name); }); // eslint-disable-line max-len
 
-function loadDMs() {
-	client.channels.filter(channel => channel.type === 'dm').map(channel => current.dms.push({ user: channel.recipient.username, id: channel.id })); // eslint-disable-line max-len
-}
+const loadDMs = () => client.channels.filter(channel => channel.type === 'dm').map(channel => current.dms.push({ user: channel.recipient.username, id: channel.id })); // eslint-disable-line max-len
 
-function loadGuilds() {
-	client.guilds.map(guild => current.guilds.push(guild.name));
-}
+const loadGuilds = () => client.guilds.map(guild => current.guilds.push(guild.name));
 
-function sendMessage(msg) {
-	if (msg) {
-		client.channels.get(current.guild.channel.id).sendMessage(msg)
-			.then()
-			.catch(err => {
-				vorpal.log(`${chalk.red('Failed to send message!')}\n${err.text}`);
-			});
-	}
-}
+const sendMessage = (msg) => client.channels.get(current.guild.channel.id).sendMessage(msg).then()
+	.catch(err => vorpal.log(`${chalk.red('Failed to send message!')}\n${err.text}`));
 
-function sendDM(msg, id) {
-	if (msg) {
-		client.channels.get(id).sendMessage(msg)
-			.then()
-			.catch(err => {
-				vorpal.log(`${chalk.red('Failed to send DM!')}\n${err.text}`);
-			});
-	}
-}
+const sendDM = (msg, id) => client.channels.get(id).sendMessage(msg).then()
+	.catch(err => vorpal.log(`${chalk.red('Failed to send DM!')}\n${err.text}`));
 
-function sendCode(syntax, code) {
-	client.channels.get(current.guild.channel.id).sendCode(syntax, code);
-}
+const sendCode = (syntax, code) => client.channels.get(current.guild.channel.id).sendCode(syntax, code).then()
+	.catch(err => vorpal.log(`${chalk.red(`Failed to send code!`)}\n${err.text}`));
