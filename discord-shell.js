@@ -29,19 +29,20 @@ client.on('ready', () => {
 	if (!client.guilds.get(config.defaultGuildID)) {
 		vorpal.log(chalk.red(`config.defaultGuildID must be a valid Guild ID!`));
 	} else {
+		let currentGuild = client.guilds.get(config.defaultGuildID);
 		objAssignDeep(current.guild, {
-			id: `${client.guilds.get(config.defaultGuildID).id}`,
-			name: `${client.guilds.get(config.defaultGuildID).name}`,
+			id: `${currentGuild.id}`,
+			name: `${currentGuild.name}`,
 			channel: {
-				id: `${client.guilds.get(config.defaultGuildID).defaultChannel.id}`,
-				name: `${client.guilds.get(config.defaultGuildID).defaultChannel.name}`
+				id: `${currentGuild.defaultChannel.id}`,
+				name: `${currentGuild.defaultChannel.name}`
 			}
 		});
 
 		if (config.defaultChannelID) {
-			if (client.guilds.get(config.defaultGuildID).channels.get(config.defaultChannelID)) {
+			if (currentGuild.channels.get(config.defaultChannelID)) {
 				Object.assign(current.guild.channel, {
-					name: `${client.guilds.get(config.defaultGuildID).channels.get(config.defaultChannelID).name}`,
+					name: `${currentGuild.channels.get(config.defaultChannelID).name}`,
 					id: `${config.defaultChannelID}`
 				});
 			}
@@ -56,17 +57,19 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-	showPrefix();
 
+	// Display Direct Messages.
 	if (msg.channel === Discord.DMChannel) {
 		objAssignDeep(current.dm, {	id: `${msg.channel.id}`, recipient: `${msg.channel.recipient}` });
 		vorpal.log(`${chalk.yellow('[DM]')} @${msg.author.username}#${msg.author.discriminator}: ${msg.cleanContent}`);
 	}
 
-	//	Display other users messages.
+	// Display other users messages.
 	if (msg.guild.id === current.guild.id && current.mutedChannels.indexOf(msg.channel.name) !== -1) {
 		vorpal.log(`[#${chalk.blue(msg.channel.name)}] @${msg.author.username}#${msg.author.discriminator}: ${msg.cleanContent}`); // eslint-disable-line max-len
 	}
+
+	showPrefix();
 });
 
 client.login(config.token);
