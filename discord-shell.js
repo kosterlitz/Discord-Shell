@@ -25,7 +25,7 @@ let current = {
 	mutedChannels: []
 };
 
-client.on('ready', async () => {
+client.on('ready', () => {
 	if (!client.guilds.get(config.defaultGuildID)) {
 		vorpal.log(chalk.red(`config.defaultGuildID must be a valid Guild ID!`));
 	} else {
@@ -49,12 +49,7 @@ client.on('ready', async () => {
 		}
 
 		loadGuilds();
-		try {
-			current.guild.channels = await loadChannels(config.defaultGuildID);
-			vorpal.log(chalk.green(`Loaded channels!`));
-		} catch (err) {
-			vorpal.log(chalk.red(`Failed to load channels in ${config.defaultGuildID}!\n${err.text}`));
-		}
+		current.guild.channels = getChannels(config.defaultGuildID);
 		loadDMs();
 		loadCommands();
 		vorpal.log(chalk.green(`Connected to ${current.guild.channel.name} in ${current.guild.name}`));
@@ -76,10 +71,6 @@ client.on('message', msg => {
 client.login(config.token);
 
 const loadCommands = () => {
-	/**
-	 * 		Prefixed Commands.
-	 */
-
 	vorpal
 		.command(`${PREFIX}setguild [guildname]`, 'Sets the current guild.')
 		.autocomplete(current.guilds)
@@ -100,13 +91,7 @@ const loadCommands = () => {
 						}
 					});
 					current.mutedChannels = [];
-					try {
-						let newChannels = await loadChannels(_guild.id);
-						objAssignDeep(current.guild.channels, newChannels);
-						vorpal.log(chalk.green('Loaded channels!'));
-					} catch (err) {
-						vorpal.log(chalk.red(`Failed to load channels in ${_guild.name}!\n${err.text}`));
-					}
+					objAssignDeep(current.guild.channels, getChannels(_guild.id));
 					vorpal.log(chalk.green('Connected!'));
 					showPrefix();
 				}
@@ -203,10 +188,6 @@ const loadCommands = () => {
 			callback();
 		});
 
-/**
- * 		Non-prefixed Commands
- */
-
 	vorpal
 		.command('say [message...]', 'Says a message in the current channel.')
 		.autocomplete(['s', 'say'])
@@ -226,14 +207,14 @@ const showPrefix = () => {
 	vorpal.delimiter(`[${chalk.blue(current.guild.name)}#${chalk[color](current.guild.channel.name)}]> `).show();
 };
 
-const loadChannels = guildID => new Promise(resolve => {
+const getChannels = guildID => {
 	let tmp = [];
 	for (const channel of client.guilds.get(guildID).channels.values()) {
 		if (channel.type === 'text' && hasPermissionIn('READ_MESSAGES', channel.id)) tmp.push(channel.name);
 		else continue;
 	}
-	resolve(tmp);
-});
+	return tmp;
+};
 
 const loadDMs = () => client.channels.filter(channel => channel.type === 'dm').map(channel => current.dms.push({ user: channel.recipient.username, id: channel.id })); // eslint-disable-line max-len
 
