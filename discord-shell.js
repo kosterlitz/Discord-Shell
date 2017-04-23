@@ -1,5 +1,11 @@
 const Discord = require('discord.js');
-const config = require('./config.json');
+const config = {
+	token: require('token.json').token,
+	defaultGuildID: process.env.npm_package_config_defaultGuildID, // eslint-disable-line no-process-env
+	defaultChannelID: process.env.npm_package_config_defaultChannelID, // eslint-disable-line no-process-env
+	prefix: process.env.npm_package_config_prefix, // eslint-disable-line no-process-env
+	syntax: process.env.npm_package_config_syntax // eslint-disable-line no-process-env
+};
 const vorpal = require('vorpal')();
 const chalk = require('chalk');
 const PREFIX = config.prefix;
