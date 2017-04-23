@@ -63,18 +63,13 @@ client.on('ready', async () => {
 });
 
 client.on('message', msg => {
-
-	// Display Direct Messages.
 	if (msg.channel === Discord.DMChannel) {
 		objAssignDeep(current.dm, {	id: `${msg.channel.id}`, recipient: `${msg.channel.recipient}` });
 		vorpal.log(`${chalk.yellow('[DM]')} @${msg.author.username}#${msg.author.discriminator}: ${msg.cleanContent}`);
 	}
-
-	// Display other users messages.
 	if (msg.guild.id === current.guild.id && current.mutedChannels.indexOf(msg.channel.name) !== -1) {
 		vorpal.log(`[#${chalk.blue(msg.channel.name)}] @${msg.author.username}#${msg.author.discriminator}: ${msg.cleanContent}`); // eslint-disable-line max-len
 	}
-
 	showPrefix();
 });
 
@@ -218,8 +213,8 @@ const loadCommands = () => {
 		.action((args, callback) => {
 			if (args.message.length !== 0) sendMessage(args.message.join(' '));
 			callback();
-		});	
-}
+		});
+};
 
 const hasPermissionIn = (permissionResolvable, channelID) => client.guilds.get(current.guild.id).channels.get(channelID)
 	.permissionsFor(client.user)
@@ -229,24 +224,22 @@ const showPrefix = () => {
 	let color = 'yellow';
 	if (hasPermissionIn('SEND_MESSAGES', current.guild.channel.id)) color = 'blue';
 	vorpal.delimiter(`[${chalk.blue(current.guild.name)}#${chalk[color](current.guild.channel.name)}]> `).show();
-}
-
-const loadChannels = (guildID) => {
-	return new Promise(resolve => {
-		let tmp = [];
-		for (const channel of client.guilds.get(guildID).channels.values()) {
-			if (channel.type === 'text' && hasPermissionIn('READ_MESSAGES', channel.id)) tmp.push(channel.name);
-			else continue;
-		}
-		return resolve(tmp);
-	});
 };
+
+const loadChannels = guildID => new Promise(resolve => {
+	let tmp = [];
+	for (const channel of client.guilds.get(guildID).channels.values()) {
+		if (channel.type === 'text' && hasPermissionIn('READ_MESSAGES', channel.id)) tmp.push(channel.name);
+		else continue;
+	}
+	resolve(tmp);
+});
 
 const loadDMs = () => client.channels.filter(channel => channel.type === 'dm').map(channel => current.dms.push({ user: channel.recipient.username, id: channel.id })); // eslint-disable-line max-len
 
 const loadGuilds = () => client.guilds.map(guild => current.guilds.push(guild.name));
 
-const sendMessage = (msg) => client.channels.get(current.guild.channel.id).sendMessage(msg).then()
+const sendMessage = msg => client.channels.get(current.guild.channel.id).sendMessage(msg).then()
 	.catch(err => vorpal.log(`${chalk.red('Failed to send message!')}\n${err.text}`));
 
 const sendDM = (msg, id) => client.channels.get(id).sendMessage(msg).then()
