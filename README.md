@@ -6,6 +6,7 @@
   <p>
     <a href="https://www.npmjs.com/package/discord-shell"><img src="https://img.shields.io/npm/v/discord-shell.svg?maxAge=3600" /></a>
     <a href="https://codeclimate.com/github/RyoshiKayo/Discord-Shell/"><img src="https://codeclimate.com/github/RyoshiKayo/Discord-Shell/badges/gpa.svg" alt="Code Climate GPA" /></a>
+    <img src="https://david-dm.org/RyoshiKayo/Discord-Shell.svg"alt="Dependencies" />
     <a href="https://travis-ci.org/RyoshiKayo/Discord-Shell"><img src="https://travis-ci.org/RyoshiKayo/Discord-Shell.svg?branch=master" alt="Travis Build Status" /></a>
     <a href="https://github.com/RyoshiKayo/Discord-Shell/blob/master/LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
   </p>
