@@ -52,6 +52,7 @@ client.on('ready', () => {
 		loadChannels();
 		loadDMs();
 		loadCommands();
+		vorpal.log(chalk.green(`Connected to ${current.guild.name}`));
 		showPrefix();
 	}
 });
