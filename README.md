@@ -79,4 +79,4 @@ Prefixed commands require the `prefix` you set in your `config.js`.
 Discord-Shell © RyoshiKayo, Released under the MIT License.
 Authored and maintained by RyoshiKayo.
 
-Thanks to @WeebDev for the "finding your token image" from [Discord.JS](https://discord.js.org/#/)
+Thanks to (@WeebDev)[https://github.com/WeebDev] for the "finding your token image" from [Discord.JS](https://discord.js.org/#/)
