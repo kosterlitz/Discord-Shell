@@ -2,7 +2,7 @@
   "name": "discord-shell",
   "version": "1.0.0",
   "engines": {
-    "node":"^7.7.4"
+    "node":">=7.7.4"
   },
   "bin": { "discord-shell": "discord-shell.js" },
   "description": "Discord in the Shell",
