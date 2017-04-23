@@ -25,7 +25,7 @@ let current = {
 	mutedChannels: []
 };
 
-client.on('ready', () => {
+client.on('ready', async () => {
 	if (!client.guilds.get(config.defaultGuildID)) {
 		vorpal.log(chalk.red(`config.defaultGuildID must be a valid Guild ID!`));
 	} else {
@@ -49,10 +49,15 @@ client.on('ready', () => {
 		}
 
 		loadGuilds();
-		loadChannels();
+		try {
+			current.guild.channels = await loadChannels(config.defaultGuildID);
+			vorpal.log(chalk.green(`Loaded channels!`));
+		} catch (err) {
+			vorpal.log(chalk.red(`Failed to load channels in ${config.defaultGuildID}!\n${err.text}`));
+		}
 		loadDMs();
 		loadCommands();
-		vorpal.log(chalk.green(`Connected to ${current.guild.name}`));
+		vorpal.log(chalk.green(`Connected to ${current.guild.channel.name} in ${current.guild.name}`));
 		showPrefix();
 	}
 });
@@ -100,7 +105,13 @@ const loadCommands = () => {
 						}
 					});
 					current.mutedChannels = [];
-					loadChannels();
+					try {
+						let newChannels = await loadChannels(_guild.id);
+						objAssignDeep(current.guild.channels, newChannels);
+						vorpal.log(chalk.green('Loaded channels!'));
+					} catch (err) {
+						vorpal.log(chalk.red(`Failed to load channels in ${_guild.name}!\n${err.text}`));
+					}
 					vorpal.log(chalk.green('Connected!'));
 					showPrefix();
 				}
@@ -210,15 +221,26 @@ const loadCommands = () => {
 		});	
 }
 
-const hasPermissionInCurrentChannel = (permissionResolvable) => client.channels.get(current.guild.channel.id).permissionsFor(client.user).hasPermission(permissionResolvable); // eslint-disable-line max-len
+const hasPermissionIn = (permissionResolvable, channelID) => client.guilds.get(current.guild.id).channels.get(channelID)
+	.permissionsFor(client.user)
+	.hasPermission(permissionResolvable);
 
 const showPrefix = () => {
 	let color = 'yellow';
-	if (hasPermissionInCurrentChannel('SEND_MESSAGES')) color = 'blue';
-	vorpal.delimiter(`[#${chalk[color](current.guild.channel.name)}]> `).show();
+	if (hasPermissionIn('SEND_MESSAGES', current.guild.channel.id)) color = 'blue';
+	vorpal.delimiter(`[${chalk.blue(current.guild.name)}#${chalk[color](current.guild.channel.name)}]> `).show();
 }
 
-const loadChannels = () => client.guilds.get(current.guild.id).channels.map(channel => { if (channel.type === 'text') return current.guild.channels.push(channel.name); }); // eslint-disable-line max-len
+const loadChannels = (guildID) => {
+	return new Promise(resolve => {
+		let tmp = [];
+		for (const channel of client.guilds.get(guildID).channels.values()) {
+			if (channel.type === 'text' && hasPermissionIn('READ_MESSAGES', channel.id)) tmp.push(channel.name);
+			else continue;
+		}
+		return resolve(tmp);
+	});
+};
 
 const loadDMs = () => client.channels.filter(channel => channel.type === 'dm').map(channel => current.dms.push({ user: channel.recipient.username, id: channel.id })); // eslint-disable-line max-len
 
