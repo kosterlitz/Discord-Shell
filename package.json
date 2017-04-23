@@ -2,7 +2,7 @@
   "name": "discord-shell",
   "version": "1.0.0",
   "engines": {
-    "node":">=7.7.4"
+    "node": ">=7.7.4"
   },
   "description": "Discord in the Shell",
   "main": "discord-shell.js",
@@ -24,7 +24,7 @@
     "eslint-plugin-standard": "^3.0.1"
   },
   "scripts": {
-    "test": "./node_modules/.bin/eslint discord-shell.js"
+    "test": "eslint discord-shell.js"
   },
   "repository": {
     "type": "git",
@@ -43,8 +43,8 @@
   },
   "homepage": "https://github.com/RyoshiKayo/Discord-Shell#readme",
   "eslintConfig": {
-		"extends": "aqua"
-	},
+    "extends": "aqua"
+  },
   "config": {
     "defaultGuildID": "",
     "defaultChannelID": "",
